@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package gRPCServerClient.proto;
+
+import "proto/entitler_types.proto";
+
+service EntitlerAPI {
+    rpc MayI(MayIRequest) returns (MayIResponse) {};
+
+    rpc ListMe(ListMeRequest) returns (ListMeResponse) {}
+}
+
+message MayIRequest {
+    string user_id = 1;
+    Operation operation = 2;
+    string account_id = 3;
+}
+
+message MayIResponse {
+    bool you_may = 1;
+    string reason = 2;
+}
+
+message ListMeRequest {
+    string user_id =1;
+    Operation operation = 2;
+}
+
+message ListMeResponse {
+    repeated AccountPermissions permission = 1;
+}
+
+message AccountPermissions {
+    string account_id = 1;
+    repeated Operation operations = 2;
+}
