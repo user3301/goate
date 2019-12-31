@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package gRPCServerClient.proto;
+
+enum Operation {
+    OPERATION_INVALID = 0;
+    OPERATION_READ = 1;
+    OPERATION_TRANSACT = 2;
+    OPERATION_APPROVE = 3;
+}
