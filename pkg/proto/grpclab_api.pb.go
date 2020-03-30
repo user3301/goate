@@ -4,8 +4,12 @@
 package proto
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -130,4 +134,120 @@ var fileDescriptor_01fdb507d7f20fe0 = []byte{
 	0x24, 0xe1, 0xa2, 0x18, 0x8e, 0x30, 0xe5, 0x62, 0x05, 0xfb, 0x01, 0x87, 0x4e, 0x31, 0xb8, 0x28,
 	0x8a, 0x4f, 0x9d, 0x38, 0xa2, 0xd8, 0xf4, 0xc1, 0x81, 0x90, 0xc4, 0x06, 0xa6, 0x8c, 0x01, 0x01,
 	0x00, 0x00, 0xff, 0xff, 0xc9, 0x1f, 0x4c, 0x89, 0x3e, 0x01, 0x00, 0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConnInterface
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion6
+
+// GRPCLabAPIServiceClient is the client API for GRPCLabAPIService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type GRPCLabAPIServiceClient interface {
+	Register(ctx context.Context, in *Credentials, opts ...grpc.CallOption) (*RegisterResponse, error)
+	Login(ctx context.Context, in *Credentials, opts ...grpc.CallOption) (*LoginResponse, error)
+}
+
+type gRPCLabAPIServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewGRPCLabAPIServiceClient(cc grpc.ClientConnInterface) GRPCLabAPIServiceClient {
+	return &gRPCLabAPIServiceClient{cc}
+}
+
+func (c *gRPCLabAPIServiceClient) Register(ctx context.Context, in *Credentials, opts ...grpc.CallOption) (*RegisterResponse, error) {
+	out := new(RegisterResponse)
+	err := c.cc.Invoke(ctx, "/grpclab.GRPCLabAPIService/Register", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gRPCLabAPIServiceClient) Login(ctx context.Context, in *Credentials, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, "/grpclab.GRPCLabAPIService/Login", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// GRPCLabAPIServiceServer is the server API for GRPCLabAPIService service.
+type GRPCLabAPIServiceServer interface {
+	Register(context.Context, *Credentials) (*RegisterResponse, error)
+	Login(context.Context, *Credentials) (*LoginResponse, error)
+}
+
+// UnimplementedGRPCLabAPIServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedGRPCLabAPIServiceServer struct {
+}
+
+func (*UnimplementedGRPCLabAPIServiceServer) Register(ctx context.Context, req *Credentials) (*RegisterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+}
+func (*UnimplementedGRPCLabAPIServiceServer) Login(ctx context.Context, req *Credentials) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+
+func RegisterGRPCLabAPIServiceServer(s *grpc.Server, srv GRPCLabAPIServiceServer) {
+	s.RegisterService(&_GRPCLabAPIService_serviceDesc, srv)
+}
+
+func _GRPCLabAPIService_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Credentials)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GRPCLabAPIServiceServer).Register(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpclab.GRPCLabAPIService/Register",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GRPCLabAPIServiceServer).Register(ctx, req.(*Credentials))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GRPCLabAPIService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Credentials)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GRPCLabAPIServiceServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpclab.GRPCLabAPIService/Login",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GRPCLabAPIServiceServer).Login(ctx, req.(*Credentials))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _GRPCLabAPIService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "grpclab.GRPCLabAPIService",
+	HandlerType: (*GRPCLabAPIServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Register",
+			Handler:    _GRPCLabAPIService_Register_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _GRPCLabAPIService_Login_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "grpclab_api.proto",
 }
