@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package grpclab;
+
+option go_package = "/proto";
+
+import "grpclab_types.proto";
+
+service GRPCLabAPIService {
+    rpc Register(Credentials) returns (RegisterResponse);
+    rpc Login (Credentials) returns (LoginResponse);
+}
+
+message LoginResponse {
+    bool success = 1;
+}
+
+message RegisterResponse {
+    bool success = 1;
+    string reason = 2;
+}
