@@ -7,10 +7,12 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// Config main config for system
 type Config struct {
 	AppConfig AppConfig `yaml:"app" validate:"required"`
 }
 
+// AppConfig config for the app
 type AppConfig struct {
 	Port int `yaml:"port" validate:"required"`
 }
