@@ -19,6 +19,12 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to load config: %v", err)
 	}
+
+	err = config.Validate()
+	if err != nil {
+		log.Fatalf("required config is missing %v", err)
+	}
+
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", config.AppConfig.Port))
 	if err != nil {
 		log.Fatalf("failed to listen : %v", err)
