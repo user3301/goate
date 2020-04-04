@@ -2,18 +2,17 @@
 // source: grpclab_api.proto
 
 /*
-Package grpclab is a reverse proxy.
+Package proto is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package grpclab
+package proto
 
 import (
 	"context"
 	"io"
 	"net/http"
 
-	proto_0 "."
 	"github.com/golang/protobuf/descriptor"
 	"github.com/golang/protobuf/proto"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
