@@ -1,4 +1,4 @@
-package gateway_server
+package gatewayserver
 
 import (
 	"fmt"

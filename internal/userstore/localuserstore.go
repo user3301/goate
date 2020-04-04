@@ -5,11 +5,13 @@ import (
 	"sync"
 )
 
+// LocalUserStore storage for user credentials
 type LocalUserStore struct {
 	storage map[string]string
 	lock    *sync.RWMutex
 }
 
+// NewLocalUserStore LocalUserStore constructor
 func NewLocalUserStore() *LocalUserStore {
 	return &LocalUserStore{
 		storage: map[string]string{},
@@ -17,6 +19,7 @@ func NewLocalUserStore() *LocalUserStore {
 	}
 }
 
+// SaveUser save use credentials
 func (l *LocalUserStore) SaveUser(userName, password string) error {
 	defer l.lock.Unlock()
 	l.lock.Lock()
@@ -27,6 +30,7 @@ func (l *LocalUserStore) SaveUser(userName, password string) error {
 	return nil
 }
 
+// GetUser Get user credentials by user name
 func (l *LocalUserStore) GetUser(userName string) (bool, string) {
 	defer l.lock.Lock()
 	l.lock.Lock()
