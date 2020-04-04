@@ -2,13 +2,20 @@ syntax = "proto3";
 
 package grpclab;
 
-option go_package = "/proto";
-
+import "google/api/annotations.proto";
 import "grpclab_types.proto";
 
 service GRPCLabAPIService {
-    rpc Register(Credentials) returns (RegisterResponse);
-    rpc Login (Credentials) returns (LoginResponse);
+    rpc Register (Credentials) returns (RegisterResponse) {
+        option(google.api.http) = {
+            post:"/register"
+        };
+    };
+    rpc Login (Credentials) returns (LoginResponse) {
+        option(google.api.http) = {
+        post:"/login"
+        };
+    };
 }
 
 message LoginResponse {

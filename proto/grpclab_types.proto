@@ -2,7 +2,7 @@ syntax="proto3";
 
 package grpclab;
 
-option go_package = "/proto";
+option go_package = "proto";
 
 message Credentials {
     string user_name = 1;
