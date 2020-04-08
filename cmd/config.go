@@ -20,6 +20,7 @@ type AppConfig struct {
 	Port int `yaml:"port" validate:"required"`
 }
 
+// PingServerConfig config for health check server
 type PingServerConfig struct {
 	Port int `yaml:"port" validate:"required"`
 }

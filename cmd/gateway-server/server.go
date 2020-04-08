@@ -17,6 +17,7 @@ import (
 	pb "github.com/user3301/grpclab/pkg/proto"
 )
 
+// NewGatewayServer Gateway Server initializer
 func NewGatewayServer(ctx context.Context, port int, service pb.GRPCLabAPIServiceServer) (*http.Server, error) {
 	grpcHandler := grpc.NewServer()
 	pb.RegisterGRPCLabAPIServiceServer(grpcHandler, service)
