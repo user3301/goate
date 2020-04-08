@@ -1,20 +1,22 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log"
-	"net"
+	"net/http"
 
-	"google.golang.org/grpc"
+	pb "github.com/user3301/grpclab/pkg/proto"
 
-	"github.com/user3301/grpclab/pkg/proto"
+	gatewayserver "github.com/user3301/grpclab/cmd/gateway-server"
 )
 
 var config = flag.String("config", "", "Config file to load, leave blank to use defaults")
 
 func main() {
 	flag.Parse()
+	ctx := context.Background()
 	config, err := loadConfig(*config)
 	if err != nil {
 		log.Fatalf("failed to load config: %v", err)
@@ -25,14 +27,27 @@ func main() {
 		log.Fatalf("required config is missing %v", err)
 	}
 
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", config.AppConfig.Port))
-	if err != nil {
-		log.Fatalf("failed to listen : %v", err)
+	pingServer := &http.Server{
+		Addr: fmt.Sprintf(":%d", config.PingServerConfig.Port),
+		Handler: http.HandlerFunc(func(http.ResponseWriter, *http.Request) {
+			log.Println("it's all good baby baby")
+		}),
 	}
-	grpcServer := grpc.NewServer()
-	proto.RegisterGRPCLabAPIServiceServer(grpcServer, &proto.UnimplementedGRPCLabAPIServiceServer{})
-	// ... determine whether to use TLS
-	if err := grpcServer.Serve(listener); err != nil {
-		log.Fatalf("failed to serve grpc server %v", err)
+
+	gatewayServer, err := gatewayserver.NewGatewayServer(ctx, config.AppConfig.Port, &pb.UnimplementedGRPCLabAPIServiceServer{})
+	if err != nil {
+		log.Fatalf("failed to initialize gateway server %v", err)
+	}
+
+	errStream := make(chan error)
+	go func() {
+		errStream <- gatewayServer.ListenAndServe()
+	}()
+	go func() {
+		errStream <- pingServer.ListenAndServe()
+	}()
+
+	if err := <-errStream; err != nil {
+		log.Fatalf("fatal error when start servers %v", err)
 	}
 }
