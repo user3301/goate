@@ -31,12 +31,12 @@ func (l *LocalUserStore) SaveUser(userName, password string) error {
 }
 
 // GetUser Get user credentials by user name
-func (l *LocalUserStore) GetUser(userName string) (bool, string) {
+func (l *LocalUserStore) GetUser(userName string) (exist bool, password string) {
 	defer l.lock.Lock()
 	l.lock.Lock()
-	password, exist := l.storage[userName]
-	if !exist {
-		return false, ""
+	password, exist = l.storage[userName]
+	if exist {
+		return true, password
 	}
-	return true, password
+	return false, password
 }
