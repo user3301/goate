@@ -11,7 +11,8 @@ import (
 
 // Config main config for system
 type Config struct {
-	AppConfig AppConfig `yaml:"app" validate:"required"`
+	AppConfig        AppConfig        `yaml:"app" validate:"required"`
+	PingServerConfig PingServerConfig `yaml:"ping" validate:"required"`
 }
 
 // AppConfig config for the app
@@ -19,11 +20,20 @@ type AppConfig struct {
 	Port int `yaml:"port" validate:"required"`
 }
 
+type PingServerConfig struct {
+	Port int `yaml:"port" validate:"required"`
+}
+
 func (c *Config) Validate() error {
 	return validator.Validate(c)
 }
 
-var defaultConfig = &Config{AppConfig: AppConfig{Port: 8080}}
+var defaultConfig = &Config{
+	AppConfig: AppConfig{Port: 8080},
+	PingServerConfig: PingServerConfig{
+		Port: 8082,
+	},
+}
 
 func loadConfig(configFile string) (*Config, error) {
 	if configFile == "" {
