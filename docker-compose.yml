@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  grpclab:
+    image: grpclab
+    build: .
+    ports:
+      - 8080:8080

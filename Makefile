@@ -33,4 +33,6 @@ vendor:
 lint:
 	golangci-lint run -v
 
-
+.PHONY: image
+image:
+	docker build -t grpclab .
