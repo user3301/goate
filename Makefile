@@ -11,7 +11,7 @@ all: test build
 
 .PHONY: build
 build:
-	$(GOBUILD) -o $(BINARY_NAME) $(GOBASE)/cmd/main.go
+	$(GOBUILD) -o $(BINARY_NAME) $(GOBASE)/cmd/.
 
 .PHONY: test
 test:
@@ -35,4 +35,4 @@ lint:
 
 .PHONY: image
 image:
-	docker build -t grpclab .
+	docker build -t user3301/grpclab .
