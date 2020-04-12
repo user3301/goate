@@ -1,8 +1,10 @@
-version: '2.1'
+version: '3'
 
 services:
   grpclab:
-    image: grpclab
-    build: .
-    ports:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
       - 8080:8080
+      - 8082:8082
