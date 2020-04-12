@@ -8,4 +8,4 @@ COPY . .
 RUN go build -o grpclab ./cmd/.
 
 CMD [ "./grpclab" ]
-EXPOSE 8080 8082
+EXPOSE 80 8082

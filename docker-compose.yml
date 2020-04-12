@@ -5,6 +5,13 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    ports: 
-      - 8080:8080
-      - 8082:8082
+
+  loadbalancer:
+    image: dockercloud/haproxy
+    links:
+      - grpclab
+    ports:
+      - 8080:80
+#      - 8082:8082  // TODO: forward 8082 to locahost
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
