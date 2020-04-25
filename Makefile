@@ -31,7 +31,7 @@ vendor:
 
 .PHONY: lint
 lint:
-	golangci-lint run -v
+	golangci-lint run -v --timeout=1m
 
 .PHONY: image
 image:
