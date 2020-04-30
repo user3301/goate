@@ -1,5 +1,10 @@
 name: Code quality check
-on: pull_request
+on:
+  push:
+    paths-ignore:
+    - '.github/**'
+    - 'deployments/**'
+    - 'docs/**'
 
 jobs:
   lint:
