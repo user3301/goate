@@ -21,7 +21,6 @@ func NewLocalUserStore() *LocalUserStore {
 
 // SaveUser save use credentials
 func (l *LocalUserStore) SaveUser(userName, password string) error {
-
 	defer l.lock.Unlock()
 	l.lock.Lock()
 	if _, exist := l.storage[userName]; exist {
