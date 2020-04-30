@@ -1,5 +1,8 @@
 name: Code quality check
-on: pull_request
+on:
+  push:
+    paths:
+      - '**.go'
 
 jobs:
   lint:
