@@ -1,8 +1,13 @@
 package main
 
 import (
+	"context"
 	"io/ioutil"
 	"path/filepath"
+
+	"github.com/user3301/grpclab/pkg/store"
+
+	"github.com/user3301/grpclab/pkg/store/implementations"
 
 	"github.com/user3301/grpclab/internal/validator"
 
@@ -17,7 +22,8 @@ type Config struct {
 
 // AppConfig config for the app
 type AppConfig struct {
-	Port int `yaml:"port" validate:"required"`
+	Port  int                     `yaml:"port" validate:"required"`
+	Store *implementations.Config `yaml:"store"`
 }
 
 // PingServerConfig config for health check server
@@ -30,7 +36,10 @@ func (c *Config) Validate() error {
 }
 
 var defaultConfig = &Config{
-	AppConfig: AppConfig{Port: 8080},
+	AppConfig: AppConfig{
+		Port:  8080,
+		Store: &implementations.Config{},
+	},
 	PingServerConfig: PingServerConfig{
 		Port: 8082,
 	},
@@ -50,4 +59,8 @@ func loadConfig(configFile string) (*Config, error) {
 		return nil, err
 	}
 	return config, nil
+}
+
+func (c Config) GetStore(ctx context.Context) (store.UserStorer, error) {
+	return c.AppConfig.Store.StoreFromConfig(ctx)
 }
