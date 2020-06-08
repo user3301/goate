@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	pb "github.com/user3301/grpclab/pkg/proto"
+	"github.com/user3301/grpclab/internal/service"
 
 	gatewayserver "github.com/user3301/grpclab/cmd/gateway-server"
 )
@@ -27,6 +27,11 @@ func main() {
 		log.Fatalf("required config is missing %v", err)
 	}
 
+	store, err := config.GetStore(ctx)
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+	userService := service.NewUserService(store)
 	pingServer := &http.Server{
 		Addr: fmt.Sprintf(":%d", config.PingServerConfig.Port),
 		Handler: http.HandlerFunc(func(http.ResponseWriter, *http.Request) {
@@ -34,7 +39,7 @@ func main() {
 		}),
 	}
 
-	gatewayServer, err := gatewayserver.NewGatewayServer(ctx, config.AppConfig.Port, &pb.UnimplementedGRPCLabAPIServiceServer{})
+	gatewayServer, err := gatewayserver.NewGatewayServer(ctx, config.AppConfig.Port, userService)
 	if err != nil {
 		log.Fatalf("failed to initialize gateway server %v", err)
 	}
