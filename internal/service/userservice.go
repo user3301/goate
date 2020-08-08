@@ -53,9 +53,8 @@ func (u UserService) Login(ctx context.Context, _ *proto.Credentials) (*proto.Lo
 	verified, reason := u.userStore.Verify(ctx, userDetails)
 	if verified {
 		return &proto.LoginResponse{}, nil
-	} else {
-		return nil, fmt.Errorf(reason)
 	}
+	return nil, fmt.Errorf(reason)
 }
 
 func (u UserService) ChangePassword(ctx context.Context, request *proto.ChangePasswordRequest) (*proto.ChangePasswordResponse, error) {
@@ -67,17 +66,16 @@ func (u UserService) ChangePassword(ctx context.Context, request *proto.ChangePa
 	verified, reason := u.userStore.Verify(ctx, userDetails)
 	if !verified {
 		return nil, fmt.Errorf(reason)
-	} else {
-		newDetails := types.UserDetails{
-			Username: request.GetUsername(),
-			Password: request.GetNewPassword(),
-		}
-		updated, err := u.userStore.UpdateUser(ctx, newDetails)
-		if err != nil || !updated {
-			return nil, err
-		}
-		return &proto.ChangePasswordResponse{}, nil
 	}
+	newDetails := types.UserDetails{
+		Username: request.GetUsername(),
+		Password: request.GetNewPassword(),
+	}
+	updated, err := u.userStore.UpdateUser(ctx, newDetails)
+	if err != nil || !updated {
+		return nil, err
+	}
+	return &proto.ChangePasswordResponse{}, nil
 }
 
 func parseBasicAuth(auth string) (username, password string, err error) {

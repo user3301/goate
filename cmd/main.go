@@ -34,8 +34,11 @@ func main() {
 	userService := service.NewUserService(store)
 	pingServer := &http.Server{
 		Addr: fmt.Sprintf(":%d", config.PingServerConfig.Port),
-		Handler: http.HandlerFunc(func(http.ResponseWriter, *http.Request) {
-			log.Println("it's all good baby baby")
+		Handler: http.HandlerFunc(func(rw http.ResponseWriter, _ *http.Request) {
+			_, err = rw.Write([]byte("received"))
+			if err != nil {
+				log.Print(err)
+			}
 		}),
 	}
 

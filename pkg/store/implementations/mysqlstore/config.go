@@ -20,14 +20,14 @@ func (c Config) MySQLStore() (store.UserStorer, error) {
 	if err != nil {
 		return nil, err
 	}
-	mySqlStore := MySQLStore{db}
+	mySQLStore := MySQLStore{db}
 	if c.DDLPath != "" {
 		err := initDB(db, c.DDLPath)
 		if err != nil {
 			return nil, err
 		}
 	}
-	return mySqlStore, nil
+	return mySQLStore, nil
 }
 
 func initDB(db *sql.DB, f string) error {
