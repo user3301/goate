@@ -11,10 +11,12 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// MySQLStore mysql database implementation
 type MySQLStore struct {
 	Db *sql.DB
 }
 
+// CreateUser creates user record
 func (m MySQLStore) CreateUser(_ context.Context, userDetails types.UserDetails) error {
 	// look if exists
 	const base = `SELECT * FROM userdetails WHERE username=%s`
@@ -46,6 +48,7 @@ func (m MySQLStore) CreateUser(_ context.Context, userDetails types.UserDetails)
 	return nil
 }
 
+// Verify check if username and password matches database record
 func (m MySQLStore) Verify(ctx context.Context, userDetails types.UserDetails) (verified bool, reason string) {
 	const base = `SELECT username, password FROM userdetails WHERE username=%s`
 	rows, err := m.Db.Query(base, userDetails.Username)
@@ -68,6 +71,7 @@ func (m MySQLStore) Verify(ctx context.Context, userDetails types.UserDetails) (
 	return true, "ok"
 }
 
+// UpdateUser updates user recprd
 func (m MySQLStore) UpdateUser(ctx context.Context, details types.UserDetails) (bool, error) {
 	stmt, err := m.Db.Prepare("UPDATE userdetails SET password=? WHERE username=?")
 	if err != nil {
