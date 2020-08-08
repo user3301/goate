@@ -36,7 +36,7 @@ func (l *LocalUserStore) CreateUser(_ context.Context, userDetails types.UserDet
 }
 
 // GetUser Get user credentials by user name
-func (l *LocalUserStore) Verify(_ context.Context, userDetails types.UserDetails) (bool, string) {
+func (l *LocalUserStore) Verify(_ context.Context, userDetails types.UserDetails) (verified bool, reason string) {
 	log.Print("user store entered")
 	defer l.lock.Unlock()
 	l.lock.Lock()
@@ -50,7 +50,7 @@ func (l *LocalUserStore) Verify(_ context.Context, userDetails types.UserDetails
 	return true, fmt.Sprint("ok")
 }
 
-func (l LocalUserStore) UpdateUser(_ context.Context, details types.UserDetails) (bool, error) {
+func (l LocalUserStore) UpdateUser(_ context.Context, details types.UserDetails) (updateSuccess bool, err error) {
 	defer l.lock.Unlock()
 	l.lock.Lock()
 	_, exist := l.storage[details.Username]

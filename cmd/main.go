@@ -35,7 +35,10 @@ func main() {
 	pingServer := &http.Server{
 		Addr: fmt.Sprintf(":%d", config.PingServerConfig.Port),
 		Handler: http.HandlerFunc(func(rw http.ResponseWriter, _ *http.Request) {
-			rw.Write([]byte("reecived"))
+			_, err = rw.Write([]byte("received"))
+			if err != nil {
+				log.Print(err)
+			}
 		}),
 	}
 
