@@ -1,22 +1,7 @@
 linters:
   disable:
-    # Dumb linter for people who can't handle _'s
-    - dogsled
-
-    # The worst linter in the history of linters
-    - lll
-
-    # Obsoleted by looppointer and exportloopref
     - scopelint
-
-    # doesn't affect you until YOU ACTUALLY NEED A GLOBAL
-    - gochecknoglobals
-
-    # Doesn't let you have TODO's
     - godox
-
-    # Attempts to make your code look nicer but is just annoying to maintain
-    # and is sometimes just wrong
     - wsl
 
 run:

@@ -50,6 +50,7 @@ func (l *LocalUserStore) Verify(_ context.Context, userDetails types.UserDetails
 	return true, fmt.Sprint("ok")
 }
 
+// UpdateUser update user record
 func (l LocalUserStore) UpdateUser(_ context.Context, details types.UserDetails) (updateSuccess bool, err error) {
 	defer l.lock.Unlock()
 	l.lock.Lock()
