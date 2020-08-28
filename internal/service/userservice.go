@@ -57,7 +57,8 @@ func (u UserService) Login(ctx context.Context, _ *proto.Credentials) (*proto.Lo
 	return nil, fmt.Errorf(reason)
 }
 
-func (u UserService) ChangePassword(ctx context.Context, request *proto.ChangePasswordRequest) (*proto.ChangePasswordResponse, error) {
+func (u UserService) ChangePassword(ctx context.Context,
+	request *proto.ChangePasswordRequest) (*proto.ChangePasswordResponse, error) {
 	log.Printf("change password entered %v", request)
 	userDetails := types.UserDetails{
 		Username: request.GetUsername(),
