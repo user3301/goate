@@ -53,7 +53,7 @@ func main() {
 	errChan := make(chan error)
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGQUIT, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
-	Run(errChan, gatewayServer, pingServer)
+	run(errChan, gatewayServer, pingServer)
 
 	select {
 	case err := <-errChan:
@@ -65,7 +65,7 @@ func main() {
 	}
 }
 
-func Run(errChan chan<- error, runners ...*http.Server) {
+func run(errChan chan<- error, runners ...*http.Server) {
 	for _, r := range runners {
 		r := r
 		go func() {

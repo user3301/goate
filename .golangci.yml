@@ -1,7 +1,7 @@
 linters:
   disable:
-    - godox
-    - wsl
+    - godox # extracts special comments (FIXME, TODO)
+    - wsl  # whitespace linter (too aggressive)
   enable:
     - bodyclose
     - deadcode
@@ -34,7 +34,7 @@ linters:
     - unparam
     - unused
     - varcheck
-    - whitespace  
+    - whitespace
 
 run:
   timeout: 3m
