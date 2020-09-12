@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/user3301/grpclab/internal/service"
 
@@ -47,15 +50,26 @@ func main() {
 		log.Fatalf("failed to initialize gateway server %v", err)
 	}
 
-	errStream := make(chan error)
-	go func() {
-		errStream <- gatewayServer.ListenAndServe()
-	}()
-	go func() {
-		errStream <- pingServer.ListenAndServe()
-	}()
+	errChan := make(chan error)
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGQUIT, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
+	run(errChan, gatewayServer, pingServer)
 
-	if err := <-errStream; err != nil {
-		log.Fatalf("fatal error when start servers %v", err)
+	select {
+	case err := <-errChan:
+		log.Fatalf("fatal error when start the app %v", err)
+	case <-ctx.Done():
+		log.Print("context cancels")
+	case sig := <-sigChan:
+		log.Printf("received os signal: %v", sig)
+	}
+}
+
+func run(errChan chan<- error, runners ...*http.Server) {
+	for _, r := range runners {
+		r := r
+		go func() {
+			errChan <- r.ListenAndServe()
+		}()
 	}
 }
