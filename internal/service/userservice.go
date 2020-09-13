@@ -18,10 +18,14 @@ type UserService struct {
 	userStore store.UserStorer
 }
 
-func NewUserService(userStore store.UserStorer) *UserService {
+// NewUserService constructs UserService
+var NewUserService = newUserService
+
+func newUserService(userStore store.UserStorer) *UserService {
 	return &UserService{userStore: userStore}
 }
 
+// Register registers a user
 func (u UserService) Register(ctx context.Context, credentials *proto.Credentials) (*proto.RegisterResponse, error) {
 	userDetails := types.UserDetails{
 		Username: credentials.GetUsername(),
@@ -30,6 +34,7 @@ func (u UserService) Register(ctx context.Context, credentials *proto.Credential
 	return &proto.RegisterResponse{}, u.userStore.CreateUser(ctx, userDetails)
 }
 
+// Login check basic auth from ctx
 func (u UserService) Login(ctx context.Context, _ *proto.LoginRequest) (*proto.LoginResponse, error) {
 	log.Print("user service entered")
 	var username, password string
@@ -56,6 +61,7 @@ func (u UserService) Login(ctx context.Context, _ *proto.LoginRequest) (*proto.L
 	return &proto.LoginResponse{Success: false}, fmt.Errorf(reason)
 }
 
+// ChangePassword changes password
 func (u UserService) ChangePassword(ctx context.Context,
 	request *proto.ChangePasswordRequest) (*proto.ChangePasswordResponse, error) {
 	log.Printf("change password entered %v", request)
