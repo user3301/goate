@@ -18,20 +18,24 @@ type UserService struct {
 	userStore store.UserStorer
 }
 
-func NewUserService(userStore store.UserStorer) *UserService {
+// NewUserService constructs UserService
+var NewUserService = newUserService
+
+func newUserService(userStore store.UserStorer) *UserService {
 	return &UserService{userStore: userStore}
 }
 
+// Register registers a user
 func (u UserService) Register(ctx context.Context, credentials *proto.Credentials) (*proto.RegisterResponse, error) {
 	userDetails := types.UserDetails{
 		Username: credentials.GetUsername(),
 		Password: credentials.GetPassword(),
 	}
-	err := u.userStore.CreateUser(ctx, userDetails)
-	return &proto.RegisterResponse{}, err
+	return &proto.RegisterResponse{}, u.userStore.CreateUser(ctx, userDetails)
 }
 
-func (u UserService) Login(ctx context.Context, _ *proto.Credentials) (*proto.LoginResponse, error) {
+// Login check basic auth from ctx
+func (u UserService) Login(ctx context.Context, _ *proto.LoginRequest) (*proto.LoginResponse, error) {
 	log.Print("user service entered")
 	var username, password string
 	var err error
@@ -52,11 +56,12 @@ func (u UserService) Login(ctx context.Context, _ *proto.Credentials) (*proto.Lo
 	}
 	verified, reason := u.userStore.Verify(ctx, userDetails)
 	if verified {
-		return &proto.LoginResponse{}, nil
+		return &proto.LoginResponse{Success: true}, nil
 	}
-	return nil, fmt.Errorf(reason)
+	return &proto.LoginResponse{Success: false}, fmt.Errorf(reason)
 }
 
+// ChangePassword changes password
 func (u UserService) ChangePassword(ctx context.Context,
 	request *proto.ChangePasswordRequest) (*proto.ChangePasswordResponse, error) {
 	log.Printf("change password entered %v", request)
@@ -74,7 +79,7 @@ func (u UserService) ChangePassword(ctx context.Context,
 	}
 	updated, err := u.userStore.UpdateUser(ctx, newDetails)
 	if err != nil || !updated {
-		return nil, err
+		return &proto.ChangePasswordResponse{}, err
 	}
 	return &proto.ChangePasswordResponse{}, nil
 }
