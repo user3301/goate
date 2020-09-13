@@ -14,7 +14,7 @@ service GRPCLabAPIService {
             body: "*"
         };
     };
-    rpc Login (Credentials) returns (LoginResponse) {
+    rpc Login (LoginRequest) returns (LoginResponse) {
         option(google.api.http) = {
         post:"/login"
         body: "*"
@@ -28,14 +28,13 @@ service GRPCLabAPIService {
     };
 }
 
+message LoginRequest {}
+
 message LoginResponse {
     bool success = 1;
 }
 
-message RegisterResponse {
-    bool success = 1;
-    string reason = 2;
-}
+message RegisterResponse {}
 
 message ChangePasswordRequest {
     string username = 1;

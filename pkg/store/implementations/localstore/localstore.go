@@ -45,9 +45,9 @@ func (l *LocalUserStore) Verify(_ context.Context, userDetails types.UserDetails
 		return false, fmt.Sprintf("username %s not exist", userDetails.Username)
 	}
 	if password != userDetails.Password {
-		return false, fmt.Sprint("password incorrect")
+		return false, "password incorrect"
 	}
-	return true, fmt.Sprint("ok")
+	return true, "ok"
 }
 
 // UpdateUser update user record

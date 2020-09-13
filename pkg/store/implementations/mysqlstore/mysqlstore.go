@@ -66,7 +66,7 @@ func (m MySQLStore) Verify(ctx context.Context, userDetails types.UserDetails) (
 		return false, rows.Err().Error()
 	}
 	if username != userDetails.Username && password != userDetails.Password {
-		return false, fmt.Sprintf("user not exist or password incorrect")
+		return false, "user not exist or password incorrect"
 	}
 	return true, "ok"
 }
