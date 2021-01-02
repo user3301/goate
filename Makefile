@@ -5,7 +5,8 @@ GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
-BINARY_NAME=grpclab
+COMMITSHA=$(shell git rev-parse --short HEAD)
+BINARY_NAME=grpclab_$(COMMITSHA)
 
 all: test build
 
