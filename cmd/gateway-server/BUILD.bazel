@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "gateway-server",
+    srcs = ["server.go"],
+    importpath = "github.com/user3301/grpclab/cmd/gateway-server",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkg/proto",
+        "//vendor/github.com/grpc-ecosystem/grpc-gateway/runtime",
+        "//vendor/golang.org/x/net/http2",
+        "//vendor/golang.org/x/net/http2/h2c",
+        "//vendor/google.golang.org/grpc",
+        "//vendor/google.golang.org/grpc/reflection",
+    ],
+)

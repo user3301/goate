@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "proto",
+    srcs = [
+        "grpclab_api.pb.go",
+        "grpclab_api.pb.gw.go",
+        "grpclab_types.pb.go",
+    ],
+    importpath = "github.com/user3301/grpclab/pkg/proto",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/golang/protobuf/descriptor",
+        "//vendor/github.com/golang/protobuf/proto",
+        "//vendor/github.com/grpc-ecosystem/grpc-gateway/runtime",
+        "//vendor/github.com/grpc-ecosystem/grpc-gateway/utilities",
+        "//vendor/google.golang.org/genproto/googleapis/api/annotations",
+        "//vendor/google.golang.org/grpc",
+        "//vendor/google.golang.org/grpc/codes",
+        "//vendor/google.golang.org/grpc/grpclog",
+        "//vendor/google.golang.org/grpc/status",
+    ],
+)

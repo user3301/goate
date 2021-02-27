@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+# gazelle:prefix github.com/user3301/grpclab
+gazelle(name = "gazelle")
+
+go_library(
+    name = "grpclab",
+    srcs = ["build.go"],
+    importpath = "github.com/user3301/grpclab",
+    visibility = ["//visibility:public"],
+)

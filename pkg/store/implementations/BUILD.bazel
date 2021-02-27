@@ -1,0 +1,13 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "implementations",
+    srcs = ["config.go"],
+    importpath = "github.com/user3301/grpclab/pkg/store/implementations",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkg/store",
+        "//pkg/store/implementations/localstore",
+        "//pkg/store/implementations/mysqlstore",
+    ],
+)

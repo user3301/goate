@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "validator",
+    srcs = ["validator.go"],
+    importpath = "github.com/user3301/grpclab/internal/validator",
+    visibility = ["//:__subpackages__"],
+    deps = ["//vendor/gopkg.in/go-playground/validator.v9:validator_v9"],
+)
