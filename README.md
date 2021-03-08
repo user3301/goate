@@ -1,6 +1,6 @@
 # goate
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c92631cb282462fb2fa5737516ad851)](https://app.codacy.com/manual/user3301/grpclab?utm_source=github.com&utm_medium=referral&utm_content=user3301/grpclab&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c92631cb282462fb2fa5737516ad851)](https://app.codacy.com/manual/user3301/goate?utm_source=github.com&utm_medium=referral&utm_content=user3301/goate&utm_campaign=Badge_Grade_Dashboard)
 
 An API server serves both HTTP and gRPC services on same port.
 
@@ -37,5 +37,5 @@ make image
 or pull the image from Docker Hub:
 
 ```shell
-docker pull user3301/grpclab:latest
+docker pull user3301/goate:latest
 ```

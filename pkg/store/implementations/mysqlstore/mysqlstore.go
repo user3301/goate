@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/user3301/grpclab/pkg/types"
+	"github.com/user3301/goate/pkg/types"
 
 	// mysql driver
 	_ "github.com/go-sql-driver/mysql"

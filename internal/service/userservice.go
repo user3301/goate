@@ -9,9 +9,9 @@ import (
 
 	"google.golang.org/grpc/metadata"
 
-	"github.com/user3301/grpclab/pkg/proto"
-	"github.com/user3301/grpclab/pkg/store"
-	"github.com/user3301/grpclab/pkg/types"
+	"github.com/user3301/goate/pkg/proto"
+	"github.com/user3301/goate/pkg/store"
+	"github.com/user3301/goate/pkg/types"
 )
 
 type UserService struct {

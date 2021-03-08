@@ -10,9 +10,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/user3301/grpclab/internal/service"
+	"github.com/user3301/goate/internal/service"
 
-	gatewayserver "github.com/user3301/grpclab/cmd/gateway-server"
+	gatewayserver "github.com/user3301/goate/cmd/gateway-server"
 )
 
 var config = flag.String("config", "", "Config file to load, leave blank to use defaults")

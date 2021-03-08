@@ -14,17 +14,17 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	pb "github.com/user3301/grpclab/pkg/proto"
+	pb "github.com/user3301/goate/pkg/proto"
 )
 
 // NewGatewayServer Gateway Server initializer
-func NewGatewayServer(ctx context.Context, port int, service pb.GRPCLabAPIServiceServer) (*http.Server, error) {
+func NewGatewayServer(ctx context.Context, port int, service pb.GoateAPIServiceServer) (*http.Server, error) {
 	grpcHandler := grpc.NewServer()
-	pb.RegisterGRPCLabAPIServiceServer(grpcHandler, service)
+	pb.RegisterGoateAPIServiceServer(grpcHandler, service)
 	reflection.Register(grpcHandler)
 
 	gwmux := runtime.NewServeMux()
-	if err := pb.RegisterGRPCLabAPIServiceHandlerServer(ctx, gwmux, service); err != nil {
+	if err := pb.RegisterGoateAPIServiceHandlerServer(ctx, gwmux, service); err != nil {
 		return nil, err
 	}
 	handler := requestDispatcher(ctx, grpcHandler, gwmux)

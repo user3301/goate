@@ -5,7 +5,7 @@
 *.so
 *.dylib
 /vendor
-grpclab
+goate
 
 # Test binary, built with `go test -c`
 *.test
