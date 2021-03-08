@@ -9,5 +9,5 @@ WORKDIR /app
 COPY . .
 RUN go build -o goate ./cmd
 
-ENTRYPOINT [ "/app/goate" ] 
+ENTRYPOINT [ "/app/goate" ]
 EXPOSE 8080 8082
