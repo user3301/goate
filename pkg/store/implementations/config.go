@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/user3301/grpclab/pkg/store/implementations/mysqlstore"
+	"github.com/user3301/goate/pkg/store/implementations/mysqlstore"
 
-	"github.com/user3301/grpclab/pkg/store/implementations/localstore"
+	"github.com/user3301/goate/pkg/store/implementations/localstore"
 
-	"github.com/user3301/grpclab/pkg/store"
+	"github.com/user3301/goate/pkg/store"
 )
 
 type Config struct {

@@ -3,7 +3,7 @@ package store
 import (
 	"context"
 
-	"github.com/user3301/grpclab/pkg/types"
+	"github.com/user3301/goate/pkg/types"
 )
 
 type UserStorer interface {

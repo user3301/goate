@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"path/filepath"
 
-	"github.com/user3301/grpclab/pkg/store"
+	"github.com/user3301/goate/pkg/store"
 )
 
 type Config struct {

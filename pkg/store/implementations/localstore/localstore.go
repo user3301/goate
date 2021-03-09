@@ -6,7 +6,7 @@ import (
 	"log"
 	"sync"
 
-	"github.com/user3301/grpclab/pkg/types"
+	"github.com/user3301/goate/pkg/types"
 )
 
 // LocalUserStore storage for user credentials

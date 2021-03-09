@@ -1,8 +1,8 @@
 version: '2.1'
 
 services:
-  grpclab:
-    image: grpclab
+  goate:
+    image: goate
     build:
       context: .
       dockerfile: Dockerfile

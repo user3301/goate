@@ -6,7 +6,7 @@ GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
 COMMITSHA=$(shell git rev-parse --short HEAD)
-BINARY_NAME=grpclab_$(COMMITSHA)
+BINARY_NAME=goate_$(COMMITSHA)
 
 all: test build
 
@@ -36,4 +36,4 @@ lint:
 
 .PHONY: image
 image:
-	docker build -t user3301/grpclab .
+	docker build -t user3301/goate .

@@ -1,11 +1,12 @@
 
 #build stage
-FROM golang:alpine AS builder
+
+FROM golang:1.15-buster AS builder
 LABEL maintainer="stan_gai@hotmail.com"
 LABEL version="v0.1"
 WORKDIR /app
 COPY . .
-RUN go build -o grpclab ./cmd/.
+RUN go build -o goate ./cmd
 
-CMD [ "./grpclab" ]
+ENTRYPOINT [ "/app/goate" ]
 EXPOSE 8080 8082

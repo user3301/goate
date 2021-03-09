@@ -5,11 +5,11 @@ import (
 	"io/ioutil"
 	"path/filepath"
 
-	"github.com/user3301/grpclab/pkg/store"
+	"github.com/user3301/goate/pkg/store"
 
-	"github.com/user3301/grpclab/pkg/store/implementations"
+	"github.com/user3301/goate/pkg/store/implementations"
 
-	"github.com/user3301/grpclab/internal/validator"
+	"github.com/user3301/goate/internal/validator"
 
 	"gopkg.in/yaml.v2"
 )
