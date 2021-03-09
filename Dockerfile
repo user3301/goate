@@ -1,8 +1,7 @@
 
 #build stage
-ARG BUILDER_IMAGE=golang:1.15-buster
 
-FROM ${BUILDER_IMAGE} AS builder
+FROM golang:1.15-buster AS builder
 LABEL maintainer="stan_gai@hotmail.com"
 LABEL version="v0.1"
 WORKDIR /app
