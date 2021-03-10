@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "service",
+    srcs = ["userservice.go"],
+    importpath = "github.com/user3301/grpclab/internal/service",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//pkg/proto",
+        "//pkg/store",
+        "//pkg/types",
+        "//vendor/google.golang.org/grpc/metadata",
+    ],
+)

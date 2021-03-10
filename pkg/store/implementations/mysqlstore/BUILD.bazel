@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "mysqlstore",
+    srcs = [
+        "config.go",
+        "mysqlstore.go",
+    ],
+    importpath = "github.com/user3301/grpclab/pkg/store/implementations/mysqlstore",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//pkg/store",
+        "//pkg/types",
+        "//vendor/github.com/go-sql-driver/mysql",
+    ],
+)

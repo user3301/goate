@@ -11,7 +11,8 @@ An API server serves both HTTP and gRPC services on same port.
 * __Go__ (v1.13 or above)
 * __protobuf__
 * __gRPC__
-  
+* __bazel__
+
 ### Optional
 
 * __grpcurl__
