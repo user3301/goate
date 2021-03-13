@@ -2,7 +2,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c92631cb282462fb2fa5737516ad851)](https://app.codacy.com/manual/user3301/goate?utm_source=github.com&utm_medium=referral&utm_content=user3301/goate&utm_campaign=Badge_Grade_Dashboard)
 
-An API server serves both HTTP and gRPC services on same port.
+An API server uses [gRPC-Gateway](https://github.com/grpc-ecosystem/grpc-gateway) to serve both HTTP and gRPC services on same port.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ An API server serves both HTTP and gRPC services on same port.
 * __Go__ (>= 1.15)
 * __protobuf__
 * __gRPC__
-  
+
 ### Optional
 
 * __grpcurl__
