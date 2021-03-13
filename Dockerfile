@@ -8,5 +8,13 @@ WORKDIR /app
 COPY . .
 RUN go build -o goate ./cmd
 
-ENTRYPOINT [ "/app/goate" ]
+FROM debian:buster-slim
+
+COPY --from=builder /app/goate /bin/goate
+
+RUN addgroup goate && useradd -g goate goate
+
+USER goate
+
+ENTRYPOINT [ "goate" ]
 EXPOSE 8080 8082
