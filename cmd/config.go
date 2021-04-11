@@ -22,8 +22,8 @@ type Config struct {
 
 // AppConfig config for the app
 type AppConfig struct {
-	Port  int                     `yaml:"port" validate:"required"`
-	Store *implementations.Config `yaml:"store"`
+	Port  int                    `yaml:"port" validate:"required"`
+	Store implementations.Config `yaml:"store"`
 }
 
 // PingServerConfig config for health check server
@@ -38,7 +38,7 @@ func (c *Config) Validate() error {
 var defaultConfig = &Config{
 	AppConfig: AppConfig{
 		Port:  8080,
-		Store: &implementations.Config{},
+		Store: implementations.Config{},
 	},
 	PingServerConfig: PingServerConfig{
 		Port: 8082,
@@ -54,11 +54,11 @@ func loadConfig(configFile string) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
-	var config *Config
-	if err := yaml.UnmarshalStrict(bytes, config); err != nil {
+	var config Config
+	if err := yaml.UnmarshalStrict(bytes, &config); err != nil {
 		return nil, err
 	}
-	return config, nil
+	return &config, nil
 }
 
 func (c Config) GetStore(ctx context.Context) (store.UserStorer, error) {

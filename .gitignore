@@ -6,6 +6,7 @@
 *.dylib
 /vendor
 goate
+bin
 
 # Test binary, built with `go test -c`
 *.test
@@ -55,7 +56,7 @@ Temporary Items
 # End of MacOS
 
 
-# Windows 
+# Windows
 Thumbs.db
 Thumbs.db:encryptable
 ehthumbs.db

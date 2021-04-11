@@ -11,8 +11,8 @@ import (
 
 type Config struct {
 	ConnStr string `yaml:"conn"`
-	Host    string `yaml:"host, omitempty"`
-	DDLPath string `yaml:"ddl, omitempty"`
+	Host    string `yaml:"host,omitempty"`
+	DDLPath string `yaml:"ddl,omitempty"`
 }
 
 func (c Config) MySQLStore() (store.UserStorer, error) {
