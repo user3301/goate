@@ -1,0 +1,9 @@
+app:
+  port: 8080
+  store:
+    mysql:
+      conn: uid=root;pwd=123456;
+      host: localhost:3306
+      ddl: database/DDL/MySql.sql
+ping:
+  port: 8082

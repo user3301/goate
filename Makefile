@@ -12,7 +12,7 @@ all: test build
 
 .PHONY: build
 build:
-	$(GOBUILD) -o $(BINARY_NAME) $(GOBASE)/cmd/.
+	$(GOBUILD) -o bin/$(BINARY_NAME) $(GOBASE)/cmd/.
 
 .PHONY: test
 test:

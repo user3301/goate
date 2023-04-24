@@ -12,7 +12,7 @@ import (
 )
 
 type Config struct {
-	MysqlConfig *mysqlstore.Config `yaml:"mysql, omitempty"`
+	MysqlConfig *mysqlstore.Config `yaml:"mysql,omitempty"`
 }
 
 func (c Config) StoreFromConfig(ctx context.Context) (store.UserStorer, error) {
