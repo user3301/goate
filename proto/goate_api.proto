@@ -4,42 +4,16 @@ package goate;
 
 option go_package = "proto";
 
-import "google/api/annotations.proto";
-import "goate_types.proto";
-
-service GoateAPIService {
-    rpc Register (Credentials) returns (RegisterResponse) {
-        option(google.api.http) = {
-            post:"/register"
-            body: "*"
-        };
-    };
-    rpc Login (LoginRequest) returns (LoginResponse) {
-        option(google.api.http) = {
-        post:"/login"
-        body: "*"
-        };
-    };
-    rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse) {
-        option(google.api.http) = {
-        post:"/change_password"
-        body: "*"
-        };
-    };
+service NormalRPCService {
+  rpc Fmt(FmtRequest) returns (FmtResponse) {};
 }
 
-message LoginRequest {}
-
-message LoginResponse {
-    bool success = 1;
+message FmtRequest {
+  string msg = 1;
 }
 
-message RegisterResponse {}
-
-message ChangePasswordRequest {
-    string username = 1;
-    string old_password = 2;
-    string new_password = 3;
+message FmtResponse {
+  string returnedMsg = 1;
 }
 
-message ChangePasswordResponse {}
+
