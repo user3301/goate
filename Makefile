@@ -26,10 +26,6 @@ clean:
 .PHONY: rebuild
 rebuild: clean build
 
-.PHONY: vendor
-vendor:
-	$(GOCMD) mod tidy && $(GOCMD) mod vendor
-
 .PHONY: lint
 lint:
 	golangci-lint run -v
@@ -37,3 +33,7 @@ lint:
 .PHONY: image
 image:
 	docker build -t user3301/goate .
+
+.PHONY: gen-proto
+gen-proto:
+	docker run -rm -u
