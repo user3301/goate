@@ -1,36 +1,7 @@
+FROM golang:1.20.4-bullseye as builder
 
-#build stage
+WORKDIR /
 
-FROM golang:1.15-buster AS builder
-LABEL maintainer="stan_gai@hotmail.com"
-LABEL version="v0.1"
-
-# create directory permission denied issue resolution
-# https://code.visualstudio.com/docs/remote/containers-advanced#_adding-a-nonroot-user-to-your-dev-container
-ARG USERNAME=goate
-ARG USER_UID=1000
-ARG USER_GID=${USER_UID}
-
-# Create the user
-# hadolint ignore=DL3008,DL3015
-RUN groupadd --gid $USER_GID $USERNAME \
-  && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-  && apt-get update \
-  && apt-get install -y sudo \
-  && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-  && chmod 0440 /etc/sudoers.d/$USERNAME
-# -----------END OF RESOLUTION--------
-
-WORKDIR /app
-
-COPY . .
-RUN go build -o goate ./cmd
-
-FROM debian:buster-slim
-
-COPY --from=builder /app/goate /bin/goate
-
-USER ${USERNAME}
-
-ENTRYPOINT [ "goate" ]
-EXPOSE 8080 8082
+COPY cmd/ cmd/
+COPY go.mod go.mod
+COPY go.sum go.sum
