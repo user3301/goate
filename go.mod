@@ -8,7 +8,7 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/leodido/go-urn v1.2.0 // indirect
-	golang.org/x/net v0.9.0
+	golang.org/x/net v0.12.0
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013
 	google.golang.org/grpc v1.39.0
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
